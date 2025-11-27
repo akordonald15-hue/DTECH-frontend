@@ -337,7 +337,7 @@ function Projects() {
       setError(null);
 
       try {
-        const res = await fetch("http://localhost:5000/api/projects");
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/projects`);
         if (!res.ok) throw new Error(`Server responded ${res.status}`);
 
         const data = await res.json();
@@ -466,7 +466,7 @@ function Projects() {
 }
 
 // -------------------- Contact --------------------
-const API = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const API = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -481,7 +481,7 @@ function Contact() {
     setStatus("Sending...");
 
     try {
-      const res = await api.post("/contacts", form);
+      const res = await axios.post(`${API}/contacts`, form);
 
       if (res.status === 200) {
         setStatus("✅ Message sent successfully!");
