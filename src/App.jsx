@@ -466,6 +466,7 @@ function Projects() {
 }
 
 // -------------------- Contact --------------------
+const API = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -480,7 +481,8 @@ function Contact() {
     setStatus("Sending...");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/contacts", form);
+      const res = await api.post("/contacts", form);
+
       if (res.status === 200) {
         setStatus("✅ Message sent successfully!");
         setForm({ name: "", email: "", message: "" });
@@ -492,10 +494,7 @@ function Contact() {
   };
 
   return (
-    <section
-      id="contact"
-      className="py-24 bg-gradient-to-r from-gray-900 to-gray-700 text-white"
-    >
+    <section id="contact" className="py-24 bg-gradient-to-r from-gray-900 to-gray-700 text-white">
       <motion.div
         className="max-w-3xl mx-auto text-center px-6"
         initial={{ opacity: 0, y: 40 }}
@@ -521,6 +520,7 @@ function Contact() {
             required
             className="w-full p-3 mb-4 rounded bg-gray-700 text-white focus:outline-none"
           />
+
           <input
             type="email"
             name="email"
@@ -530,6 +530,7 @@ function Contact() {
             required
             className="w-full p-3 mb-4 rounded bg-gray-700 text-white focus:outline-none"
           />
+
           <textarea
             name="message"
             placeholder="Your Message"
@@ -538,6 +539,7 @@ function Contact() {
             required
             className="w-full p-3 mb-4 rounded bg-gray-700 text-white focus:outline-none h-32"
           />
+
           <button
             type="submit"
             className="w-full bg-white text-gray-900 px-6 py-3 rounded font-semibold shadow hover:bg-gray-200 transition"
@@ -551,6 +553,7 @@ function Contact() {
     </section>
   );
 }
+
 
 // -------------------- Footer --------------------
 function Footer() {
