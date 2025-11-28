@@ -24,13 +24,14 @@ function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-gray-900/80 backdrop-blur-md shadow-lg">
-      <div className="max-w-6xl mx-auto px-4 flex justify-between items-center h-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex justify-between items-center h-16">
         <a
           href="#home"
           className="text-2xl font-extrabold text-white hover:text-gray-300 tracking-wide transition"
         >
           DTECH
         </a>
+
         <div className="hidden md:flex space-x-8">
           {links.map((link) => (
             <a
@@ -42,7 +43,9 @@ function Navbar() {
             </a>
           ))}
         </div>
+
         <button
+          aria-label="Toggle menu"
           className="md:hidden text-gray-300"
           onClick={() => setOpen(!open)}
         >
@@ -50,18 +53,21 @@ function Navbar() {
         </button>
       </div>
 
+      {/* Mobile menu (absolute, below nav) */}
       {open && (
-        <div className="md:hidden bg-gray-900/95 shadow-md">
-          {links.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="block px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition"
-              onClick={() => setOpen(false)}
-            >
-              {link.name}
-            </a>
-          ))}
+        <div className="md:hidden absolute top-16 left-0 w-full bg-gray-900/95 shadow-md z-40">
+          <div className="px-2 py-2">
+            {links.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="block px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-white rounded-md transition"
+                onClick={() => setOpen(false)}
+              >
+                {link.name}
+              </a>
+            ))}
+          </div>
         </div>
       )}
     </nav>
@@ -87,7 +93,7 @@ function Hero() {
   return (
     <section
       id="home"
-      className="relative h-screen flex items-center justify-center text-white overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center text-white overflow-hidden"
     >
       {/* Background slideshow */}
       <AnimatePresence mode="wait">
@@ -95,7 +101,7 @@ function Hero() {
           key={images[index]}
           src={images[index]}
           alt={`Donald ${index + 1}`}
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover object-center"
           initial={{ opacity: 0, scale: 1.08 }}
           animate={{ opacity: 0.9, scale: 1 }}
           exit={{ opacity: 0, scale: 1.08 }}
@@ -104,70 +110,73 @@ function Hero() {
       </AnimatePresence>
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/40"></div>
+      <div className="absolute inset-0 bg-black/45"></div>
 
       {/* Hero text */}
       <motion.div
-        className="relative text-center z-10 px-6"
+        className="relative text-center z-10 px-6 w-full"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2 }}
       >
-        <h1 className="text-5xl md:text-6xl font-extrabold mb-6 drop-shadow-lg">
-          Hi, My Name is Akor Donald Ayibapreye 👋
-        </h1>
-        <div className="text-xl md:text-2xl font-bold text-black mb-6">  
-          <Typewriter
-  options={{
-    strings: [
-      "Software Engineer",
-      "Full-Stack Developer",
-      "Problem Solver",
-      "Builder of Digital Experiences",
-    ],
-    autoStart: true,
-    loop: true,
-    delay: 40,
-    deleteSpeed: 20,
-  }}
-/>
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg leading-tight">
+            Hi, My Name is Akor Donald Ayibapreye 👋
+          </h1>
 
+          <div className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-4">
+            <Typewriter
+              options={{
+                strings: [
+                  "Software Engineer",
+                  "Full-Stack Developer",
+                  "Problem Solver",
+                  "Builder of Digital Experiences",
+                ],
+                autoStart: true,
+                loop: true,
+                delay: 40,
+                deleteSpeed: 20,
+              }}
+            />
+          </div>
+
+          <p className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-6 text-white/90 leading-relaxed">
+            A passionate <span className="font-bold">Software Engineer</span>{" "}
+            crafting modern web apps, solving problems, and building impactful
+            digital experiences.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+            {/* View My Work */}
+            <a
+              href="#projects"
+              className="bg-white text-gray-900 px-6 sm:px-8 py-2.5 rounded-full font-semibold shadow-lg hover:bg-gray-200 transition"
+            >
+              View My Work
+            </a>
+
+            {/* Download Resume */}
+            <a
+              href="/resume.pdf"
+              download="Akor-Donald-Resume.pdf"
+              className="bg-transparent border border-white px-6 sm:px-8 py-2.5 rounded-full font-semibold text-white hover:bg-white hover:text-gray-900 transition"
+            >
+              Download Resume
+            </a>
+          </div>
         </div>
-        <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8 text-black leading-relaxed">
-          A passionate <span className="font-bold">Software Engineer</span>{" "}
-          crafting modern web apps, solving problems, and building impactful
-          digital experiences.
-        </p>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-    {/* View My Work */}
-    <a
-      href="#projects"
-      className="bg-white text-gray-900 px-8 py-3 rounded-full font-semibold shadow-lg hover:bg-gray-200 transition"
-    >
-      View My Work
-    </a>
-
-    {/* Download Resume */}
-    <a
-      href="/resume.pdf"
-      download="Akor-Donald-Resume.pdf"
-      className="bg-transparent border border-white px-8 py-3 rounded-full font-semibold text-white hover:bg-white hover:text-gray-900 transition"
-    >
-      Download Resume
-    </a>
-  </div>
-</motion.div>
+      </motion.div>
     </section>
   );
 }
 
 // -------------------- About --------------------
-// -------------------- About --------------------
 function About() {
   return (
-    <section id="about" className="py-24 bg-gray-100 text-gray-900">
+    <section id="about" className="py-20 sm:py-24 bg-gray-100 text-gray-900">
       <motion.div
-        className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center md:items-start gap-12"
+        className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center md:items-start gap-8 sm:gap-12"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
@@ -183,7 +192,7 @@ function About() {
           <img
             src="/images/donald1.webp"
             alt="Donald"
-            className="rounded-2xl shadow-lg w-80 md:w-full object-cover"
+            className="rounded-2xl shadow-lg w-full max-w-xs sm:max-w-sm md:max-w-none object-cover"
           />
         </motion.div>
 
@@ -194,20 +203,20 @@ function About() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 1 }}
         >
-          <h2 className="text-3xl font-bold mb-6">About Me</h2>
-          <p className="text-gray-700 leading-relaxed text-lg mb-6">
-            I am a <span className="font-semibold">Software Engineer </span> 
-             from Nigeria, focused on designing and developing modern, scalable, and user-centered digital solutions. I specialize in JavaScript, React, Node.js, C#, Python, and building clean, responsive interfaces with Tailwind CSS.
-With a strong foundation in software engineering principles and hands-on experience across both frontend and backend technologies, I enjoy turning complex problems into practical, intuitive applications.          </p>
-          <p className="text-gray-700 leading-relaxed text-lg mb-6">
-            Currently a <span className="font-semibold"> first-class student</span> 
-            with a CGPA of 4.7 🎓.where my academic journey has strengthened my analytical thinking, engineering discipline, and approach to building reliable systems.
-I have worked on diverse projects from full restaurant management platforms to engineering tools like oil production calculators  all driven by a commitment to efficiency, clarity, and real-world impact.
-I am constantly learning, improving, and exploring new technologies to become a world-class engineer who builds software that truly makes a difference.
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">About Me</h2>
+          <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">
+            I am a <span className="font-semibold">Software Engineer </span>
+            from Nigeria, focused on designing and developing modern, scalable, and user-centered digital solutions. I specialize in JavaScript, React, Node.js, C#, Python, and building clean, responsive interfaces with Tailwind CSS.
+            With a strong foundation in software engineering principles and hands-on experience across both frontend and backend technologies, I enjoy turning complex problems into practical, intuitive applications.
           </p>
+
+          <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">
+            Currently a <span className="font-semibold">first-class student</span> with a CGPA of 4.7 🎓. My academic journey has strengthened my analytical thinking, engineering discipline, and approach to building reliable systems. I have worked on diverse projects from full restaurant management platforms to engineering tools like oil production calculators — all driven by a commitment to efficiency, clarity, and real-world impact.
+          </p>
+
           <a
             href="#projects"
-            className="inline-block mt-4 bg-gray-900 text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-gray-700 transition"
+            className="inline-block mt-2 bg-gray-900 text-white px-4 sm:px-6 py-2 rounded-lg font-semibold shadow hover:bg-gray-700 transition"
           >
             View My Work
           </a>
@@ -272,21 +281,21 @@ function Skills() {
   ];
 
   return (
-    <section id="skills" className="py-24 bg-white text-gray-900">
+    <section id="skills" className="py-20 bg-white text-gray-900">
       <motion.div
-        className="max-w-6xl mx-auto px-6 text-center"
+        className="max-w-6xl mx-auto px-4 sm:px-6 text-center"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
         viewport={{ once: true }}
       >
-        <h2 className="text-3xl font-bold mb-12">Skills</h2>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-10">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-8">Skills</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 md:gap-10">
           {skills.map((s, i) => (
             <motion.div
               key={i}
               className="p-6 rounded-xl bg-gray-100 shadow hover:shadow-2xl transition flex flex-col items-center justify-center"
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.06 }}
             >
               {s.icon}
               <p className="font-semibold mt-3">{s.name}</p>
@@ -353,14 +362,13 @@ function Projects() {
         if (!cancelled) {
           if (arr.length > 0) setProjects(arr);
           else {
-            
             setProjects(fallbackProjects);
           }
         }
       } catch (err) {
         console.error("Error fetching projects:", err);
         if (!cancelled) {
-          setProjects(fallbackProjects); 
+          setProjects(fallbackProjects);
           setError(err.message || "Failed to load projects");
         }
       } finally {
@@ -374,17 +382,16 @@ function Projects() {
     };
   }, []);
 
-
   return (
-    <section id="projects" className="py-24 bg-gray-900 text-gray-100">
+    <section id="projects" className="py-20 bg-gray-900 text-gray-100">
       <motion.div
-        className="max-w-6xl mx-auto px-6"
+        className="max-w-6xl mx-auto px-4 sm:px-6"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
         viewport={{ once: true }}
       >
-        <h2 className="text-3xl font-bold text-center mb-8">Projects</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8">Projects</h2>
 
         {/* Loading */}
         {loading && (
@@ -393,25 +400,24 @@ function Projects() {
           </div>
         )}
 
-
         {/* Projects grid */}
         {!loading && projects.length === 0 && (
           <p className="text-center text-gray-400 py-8">No projects to show.</p>
         )}
 
-        <div className="grid md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
           {projects.map((p, i) => (
             <motion.div
               key={i}
               className="bg-gray-800 rounded-2xl shadow-lg overflow-hidden group"
-              whileHover={{ scale: 1.03 }}
+              whileHover={{ scale: 1.02 }}
             >
               {/* Image */}
               <div className="relative">
                 <img
                   src={p.img || "/images/placeholder.jpg"}
                   alt={p.title}
-                  className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-40 sm:h-48 object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 />
 
                 {/* Hover icons overlay */}
@@ -430,9 +436,9 @@ function Projects() {
               </div>
 
               {/* Text + visible buttons */}
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{p.title}</h3>
-                <p className="text-gray-300">{p.desc}</p>
+              <div className="p-4 sm:p-6">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">{p.title}</h3>
+                <p className="text-gray-300 text-sm sm:text-base">{p.desc}</p>
 
                 <div className="mt-4 flex flex-wrap gap-3">
                   {p.demo && p.demo !== "#" && (
@@ -440,7 +446,7 @@ function Projects() {
                       href={p.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-white text-gray-900 font-semibold hover:bg-gray-200 transition"
+                      className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-white text-gray-900 font-semibold hover:bg-gray-200 transition text-sm"
                     >
                       Live Demo <ExternalLink className="w-4 h-4" />
                     </a>
@@ -450,7 +456,7 @@ function Projects() {
                       href={p.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-gray-700 text-gray-200 hover:bg-gray-800 transition"
+                      className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-gray-700 text-gray-200 hover:bg-gray-800 transition text-sm"
                     >
                       View Code <Github className="w-4 h-4" />
                     </a>
@@ -494,22 +500,22 @@ function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-gradient-to-r from-gray-900 to-gray-700 text-white">
+    <section id="contact" className="py-20 bg-gradient-to-r from-gray-900 to-gray-700 text-white">
       <motion.div
-        className="max-w-3xl mx-auto text-center px-6"
+        className="max-w-xl sm:max-w-2xl mx-auto text-center px-4 sm:px-6"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
         viewport={{ once: true }}
       >
-        <h2 className="text-3xl font-bold mb-6">Get In Touch</h2>
-        <p className="mb-8 text-lg text-gray-200">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-4">Get In Touch</h2>
+        <p className="mb-6 text-lg text-gray-200">
           Have a project in mind or want to collaborate? Let’s connect.
         </p>
 
         <form
           onSubmit={handleSubmit}
-          className="bg-gray-800 rounded-2xl p-6 shadow-lg text-left"
+          className="bg-gray-800 rounded-2xl p-4 sm:p-6 shadow-lg text-left"
         >
           <input
             type="text"
@@ -554,12 +560,11 @@ function Contact() {
   );
 }
 
-
 // -------------------- Footer --------------------
 function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300 py-6">
-      <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center">
         <p className="text-sm">&copy; {new Date().getFullYear()} DONALD</p>
 
         <div className="flex space-x-6 mt-4 md:mt-0">
@@ -610,7 +615,6 @@ function Footer() {
     </footer>
   );
 }
-
 
 // -------------------- App --------------------
 function HomePage() {
