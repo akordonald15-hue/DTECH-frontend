@@ -10,7 +10,6 @@ import AdminDashboard from "./AdminDashboard";
 import Typewriter from "typewriter-effect";
 
 // -------------------- Navbar --------------------
-
 function Navbar() {
   const [open, setOpen] = useState(false);
 
@@ -23,8 +22,8 @@ function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-gray-900/80 backdrop-blur-md shadow-lg">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex justify-between items-center h-16">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-gray-900/80 backdrop-blur-md shadow-lg overflow-x-hidden">
+      <div className="w-full px-3 sm:px-6 flex justify-between items-center h-16 overflow-x-hidden">
         <a
           href="#home"
           className="text-2xl font-extrabold text-white hover:text-gray-300 tracking-wide transition"
@@ -32,7 +31,7 @@ function Navbar() {
           DTECH
         </a>
 
-        <div className="hidden md:flex space-x-8">
+        <div className="hidden md:flex space-x-6">
           {links.map((link) => (
             <a
               key={link.name}
@@ -53,10 +52,9 @@ function Navbar() {
         </button>
       </div>
 
-      {/* Mobile menu (absolute, below nav) */}
       {open && (
-        <div className="md:hidden absolute top-16 left-0 w-full bg-gray-900/95 shadow-md z-40">
-          <div className="px-2 py-2">
+        <div className="md:hidden absolute top-16 left-0 w-full bg-gray-900/95 shadow-md overflow-hidden z-40">
+          <div className="px-3 py-2">
             {links.map((link) => (
               <a
                 key={link.name}
@@ -73,6 +71,7 @@ function Navbar() {
     </nav>
   );
 }
+
 
 // -------------------- Hero --------------------
 function Hero() {
