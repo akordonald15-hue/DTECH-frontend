@@ -466,7 +466,7 @@ function Projects() {
 }
 
 // -------------------- Contact --------------------
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API = import.meta.env.VITE_API_URL || "https://dtech-backend.onrender.com/api";
 
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
