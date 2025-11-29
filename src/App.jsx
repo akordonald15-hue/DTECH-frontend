@@ -8,6 +8,8 @@ import axios from "axios";
 import ProtectedRoute from "./ProtectedRoute";
 import AdminDashboard from "./AdminDashboard";
 import Typewriter from "typewriter-effect";
+axios.defaults.timeout = 5000;
+
 
 // -------------------- Navbar --------------------
 
@@ -161,7 +163,6 @@ function Hero() {
   );
 }
 
-// -------------------- About --------------------
 // -------------------- About --------------------
 function About() {
   return (
@@ -341,7 +342,6 @@ function Projects() {
         if (!res.ok) throw new Error(`Server responded ${res.status}`);
 
         const data = await res.json();
-        // Handle different possible shapes: array, { projects: [...] }, { data: [...] }
         const arr = Array.isArray(data)
           ? data
           : Array.isArray(data.projects)
@@ -466,7 +466,10 @@ function Projects() {
 }
 
 // -------------------- Contact --------------------
-const API = import.meta.env.VITE_API_URL || "https://dtech-backend.onrender.com/api";
+const API =
+  import.meta.env.MODE === "development"
+    ? "http://localhost:5000/api"
+    : "https://dtech-backend.onrender.com/api";
 
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -650,7 +653,7 @@ function LoginWrapper() {
   const navigate = useNavigate();
 
   const handleSuccess = () => {
-    localStorage.setItem("isLoggedIn", "true"); // optional helper flag
+    localStorage.setItem("isLoggedIn", "true");
     navigate("/admin");
   };
 
